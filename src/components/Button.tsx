@@ -28,7 +28,7 @@ type AnchorProps = ComponentPropsWithoutRef<"a">;
 
 // The "props is AnchorProps" predicate allows us to tell TS that the function returns a Boolean value, which, if true, means that the "props" object belongs to an anchor element.
 
-// As a downside of this approach, we can now add the button elements attributes/props to anchor elements and vice versa, because TS sees the props object of the Button instance as (ButtonProps | AnchorProps). Without a discriminator, TS doesn't know if a Button component instance is a "button" or an "anchor" element. For instance, we can add the "target" attribute/prop to a button-type Button instance, or the "disabled" attribute/prop to an anchor-type Button instance. In other words, TS sees the combined union of AnchorProps and ButtonProps as the correct type for the props object of a Button component instance.
+// As a downside of this approach, we can now add the button element's attributes/props to anchor elements and vice versa, because TS sees the props object of the Button instance as (ButtonProps | AnchorProps). Without a discriminator, TS doesn't know if a Button component instance is a "button" or an "anchor" element. For instance, we can add the "target" attribute/prop to a button-type Button instance, or the "disabled" attribute/prop to an anchor-type Button instance. In other words, TS sees the combined union of AnchorProps and ButtonProps as the correct type for the props object of a Button component instance.
 
 // To mitigate this caveat:
 */
@@ -41,7 +41,7 @@ type AnchorProps = ComponentPropsWithoutRef<"a"> & {
   href?: string;
   disabled?: never;
 };
-// This helps TS understand that if a Button component instance contains the "href" attribute, it is a string, because the attribute can "never" be set on a ButtonProps type. So, if we use the "href" attribute in a Button instance, TS will know that it is an anchor and won't let us use the "disabled" attribute in that instance. However, the absence of the "href" prop will not help TS magically understand that the Button instance is a button element, because the "href" attribute is optional in anchor elements
+// This helps TS understand that if a Button component instance contains the "href" attribute, the attribute's value is a string, because "href" can "never" be set on a ButtonProps type. So, if we use the "href" attribute in a Button instance, TS will know that it is an anchor and won't let us use the "disabled" attribute in that instance. However, the absence of the "href" prop will not help TS magically understand that the Button instance is a button element, because the "href" attribute is optional in anchor elements
 
 const Button: FC<ButtonProps | AnchorProps> = function (props) {
   if (isAnchorProps(props)) {
