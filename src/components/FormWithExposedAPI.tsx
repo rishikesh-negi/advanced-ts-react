@@ -24,7 +24,7 @@ const Form = forwardRef<FormApi, FormProps>(function (
   // The component's internal ref to reference the target JSX element for external operations performed using the exposed API:
   const form = useRef<HTMLFormElement>(null);
 
-  // We can expose a callable API from the component, that can be accessed by assigning a ref to the component instance. The API will allow interaction with the component from the outside. The useImperativeHandle() hook is used for it:
+  // We can expose a callable API from the component that can be accessed by assigning a ref to the component instance. The API will allow interaction with the component from the outside. The useImperativeHandle() hook is used for it:
   useImperativeHandle(ref, () => ({
     clear() {
       form.current?.reset(); // optional chaining because the "form" ref could be null
@@ -38,8 +38,6 @@ const Form = forwardRef<FormApi, FormProps>(function (
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
     onSave(data);
-
-    form.current?.reset();
   }
 
   return (
