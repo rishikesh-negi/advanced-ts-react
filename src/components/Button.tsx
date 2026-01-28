@@ -29,10 +29,9 @@ type AnchorProps = ComponentPropsWithoutRef<"a">;
 // The "props is AnchorProps" predicate allows us to tell TS that the function returns a Boolean value, which, if true, means that the "props" object belongs to an anchor element.
 
 // As a downside of this approach, we can now add the button element's attributes/props to anchor elements and vice versa, because TS sees the props object of the Button instance as (ButtonProps | AnchorProps). Without a discriminator, TS doesn't know if a Button component instance is a "button" or an "anchor" element. For instance, we can add the "target" attribute/prop to a button-type Button instance, or the "disabled" attribute/prop to an anchor-type Button instance. In other words, TS sees the combined union of AnchorProps and ButtonProps as the correct type for the props object of a Button component instance.
-
-// To mitigate this caveat:
 */
 
+// To mitigate this caveat:
 type ButtonProps = ComponentPropsWithoutRef<"button"> & {
   href?: never;
   disabled?: boolean;
